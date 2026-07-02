@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0050)file:///C:/Users/N8000176/Desktop/HORAS/index.html -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dashboard - Banco de Horas</title>
-<script src="./index_files/chart.js@4.4.0"></script>
-<script src="./index_files/chartjs-plugin-datalabels@2.2.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 <style>
   * { box-sizing: border-box; }
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:24px;
@@ -126,11 +126,11 @@
 
 <header>
   <div class="titlebox">
-    <h1>Dashboard - Banco de Horas (Créditos x Débitos) DATACENTER </h1>
-    <div class="sub">Período dos lançamentos: <span id="periodo">04/04/2026 a 01/07/2026</span> &nbsp;|&nbsp; Atualizado em: <span id="gerEm">02/07/2026, 15:58:37</span></div>
+    <h1>Dashboard - Banco de Horas (Créditos x Débitos) TECNICO REMOTO RSI </h1>
+    <div class="sub">Período dos lançamentos: <span id="periodo">23/04/2026 a 22/06/2026</span> &nbsp;|&nbsp; Atualizado em: <span id="gerEm">26/06/2026 17:12</span></div>
   </div>
   <div id="headerActions">
-    <button class="btn-action btn-upload" onclick="document.getElementById(&#39;fileInput&#39;).click()">📂 Carregar CSV</button>
+    <button class="btn-action btn-upload" onclick="document.getElementById('fileInput').click()">📂 Carregar CSV</button>
     <button class="btn-action btn-pdf" onclick="window.print()">🖨️ Exportar PDF</button>
     <input type="file" id="fileInput" accept=".csv,.txt" style="display:none">
   </div>
@@ -141,32 +141,34 @@
 <div class="filters">
   <div class="filter-group">
     <span class="filter-label">Tipo:</span>
-    <div id="filterTipo" style="display:flex;flex-wrap:wrap;gap:6px;"><button class="btn-filter active" data-value="TODOS">Todos</button><button class="btn-filter" data-value="CREDITO">🟢 Créditos</button><button class="btn-filter" data-value="DEBITO">🔴 Débitos</button></div>
+    <div id="filterTipo" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
   </div>
   <div class="filter-group">
     <span class="filter-label">Status:</span>
-    <div id="filterStatus" style="display:flex;flex-wrap:wrap;gap:6px;"><button class="btn-filter active" data-value="TODOS">Todos</button><button class="btn-filter" data-value="ATIVO">ATIVO</button><button class="btn-filter" data-value="F�RIAS">F�RIAS</button></div>
+    <div id="filterStatus" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
   </div>
   <div class="filter-group">
     <span class="filter-label">Cargo:</span>
-    <div id="filterCargo" style="display:flex;flex-wrap:wrap;gap:6px;"><button class="btn-filter active" data-value="TODOS">Todos</button><button class="btn-filter" data-value="TECNICO AT BK II">TECNICO AT BK II</button><button class="btn-filter" data-value="TECNICO IAT I">TECNICO IAT I</button><button class="btn-filter" data-value="TECNICO IAT II">TECNICO IAT II</button></div>
+    <div id="filterCargo" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
   </div>
 <div class="filter-group">
   <span class="filter-label">Colaborador:</span>
-  <select id="filtro-colaborador" onchange="filtrarPorColaborador()" style="padding:6px 14px; border-radius:12px; border:1px solid #d9e2ec; background-color:#f0f4f8; color:#1a2a44; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; min-width:200px;"><option value="TODOS">TODOS</option><option value="ADILSON JOSE DA SILVA">ADILSON JOSE DA SILVA</option><option value="ANDRE LUIZ DE ARAUJO">ANDRE LUIZ DE ARAUJO</option><option value="AYRTON CESAR DOS SANTOS PEREIRA">AYRTON CESAR DOS SANTOS PEREIRA</option><option value="EWANDER DA SILVA CARVALHO">EWANDER DA SILVA CARVALHO</option><option value="EWANDRO MOURA FE">EWANDRO MOURA FE</option><option value="GABRIEL DE FARIA">GABRIEL DE FARIA</option><option value="GERSAM BERNARDO DE OLIVEIRA">GERSAM BERNARDO DE OLIVEIRA</option><option value="GUSTAVO DONIZETI CARETTE">GUSTAVO DONIZETI CARETTE</option><option value="GUSTAVO HENRIQUE MENDES DE ALMEIDA">GUSTAVO HENRIQUE MENDES DE ALMEIDA</option><option value="JOSNEI MACHADO DE SOUZA">JOSNEI MACHADO DE SOUZA</option><option value="LEONARDO TEIXEIRA DO NASCIMENTO">LEONARDO TEIXEIRA DO NASCIMENTO</option><option value="LUCAS PAIS DE CAMARGO">LUCAS PAIS DE CAMARGO</option><option value="MARCIO INACIO DE SOUZA">MARCIO INACIO DE SOUZA</option><option value="ODIRLEI SILVEIRA DE CAMPOS">ODIRLEI SILVEIRA DE CAMPOS</option><option value="PAULO SERGIO CARRARA">PAULO SERGIO CARRARA</option><option value="RODRIGO FERREIRA ALBUQUERQUE">RODRIGO FERREIRA ALBUQUERQUE</option><option value="ROGERIO SOUZA DOS SANTOS">ROGERIO SOUZA DOS SANTOS</option></select>
+  <select id="filtro-colaborador" onchange="filtrarPorColaborador()" style="padding:6px 14px; border-radius:12px; border:1px solid #d9e2ec; background-color:#f0f4f8; color:#1a2a44; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; min-width:200px;">
+    <option value="TODOS">TODOS</option>
+  </select>
 </div>
   <div class="filter-group">
-    <span class="filter-info" id="filterInfo">📊 Mostrando todos os 131 lançamentos</span>
+    <span class="filter-info" id="filterInfo"></span>
     <button class="btn-clear" onclick="clearFilters()">🔄 Limpar Filtros</button>
   </div>
 </div>
 
 <div id="historyPanel">
-  <div id="historyToggle" onclick="toggleHistory()" class="">
-    <div class="left">📚 Histórico de Atualizações <span class="count-badge" id="historyCount">1</span></div>
+  <div id="historyToggle" onclick="toggleHistory()">
+    <div class="left">📚 Histórico de Atualizações <span class="count-badge" id="historyCount">0</span></div>
     <div class="arrow">▼</div>
   </div>
-  <div id="historyContent" class="">
+  <div id="historyContent">
     <div class="history-info">
       ℹ️ Por questões de segurança, os navegadores não permitem criar pastas no seu computador automaticamente.
       O histórico fica armazenado no <b>IndexedDB do navegador</b> (persiste mesmo após fechar o Edge/Chrome).
@@ -175,63 +177,17 @@
     </div>
     <table>
       <thead><tr><th>#</th><th>Arquivo</th><th>Upload</th><th>Período</th><th>Lanç.</th><th>Colab.</th><th>Ações</th></tr></thead>
-      <tbody id="historyTbody">
-      <tr>
-        <td>1</td>
-        <td><b>bancodehora.csv</b></td>
-        <td>02/07/2026, 15:58:37</td>
-        <td>04/04/2026 a 01/07/2026</td>
-        <td class="num">131</td>
-        <td class="num">17</td>
-        <td>
-          <button class="btn-history load" onclick="loadFromHistory(75)">🔄 Carregar</button>
-          <button class="btn-history download" onclick="downloadFromHistory(75)">⬇️ Baixar</button>
-          <button class="btn-history delete" onclick="removeFromHistory(75)">🗑️</button>
-        </td>
-      </tr>
-    </tbody>
+      <tbody id="historyTbody"></tbody>
     </table>
     <button class="btn-clear-history" onclick="confirmClearHistory()">🧹 Limpar Histórico</button>
   </div>
 </div>
 
-<section class="kpis" id="kpis">
-    <div class="kpi cred"><div class="label">Total Créditos</div><div class="value">33:24</div></div>
-    <div class="kpi deb"><div class="label">Total Débitos</div><div class="value">144:21</div></div>
-    <div class="kpi saldo-neg"><div class="label">Saldo Líquido</div><div class="value">-110:57</div></div>
-    <div class="kpi"><div class="label">Colaboradores</div><div class="value">17</div></div>
-    <div class="kpi"><div class="label">Lançamentos</div><div class="value">131</div></div>
-  </section>
+<section class="kpis" id="kpis"></section>
 
 <div class="grid two">
-  <div id="alertCred">
-    <div class="alert-card cred">
-      <div class="days">⏱️ 5 dias</div>
-      <div class="tag">🟢 Crédito mais próximo do vencimento</div>
-      <div class="name">ROGERIO SOUZA DOS SANTOS</div>
-      <div class="cargo">TECNICO IAT II &nbsp;•&nbsp; ATIVO</div>
-      <div class="row">
-        <div><b>Valor</b><div class="val">00:11</div></div>
-        <div><b>Realização</b><div class="val">07/04/2026</div></div>
-        <div><b>Vencimento</b><div class="val">06/07/2026</div></div>
-      </div>
-      <div style="margin-top:10px; font-size:12px; opacity:0.9;">CREDITO BANCO DE HORAS</div>
-    </div>
-  </div>
-  <div id="alertDeb">
-    <div class="alert-card deb">
-      <div class="days">⏱️ 2 dias</div>
-      <div class="tag">🔴 Débito mais próximo do vencimento</div>
-      <div class="name">LUCAS PAIS DE CAMARGO</div>
-      <div class="cargo">TECNICO IAT II &nbsp;•&nbsp; ATIVO</div>
-      <div class="row">
-        <div><b>Valor</b><div class="val">07:10</div></div>
-        <div><b>Realização</b><div class="val">04/04/2026</div></div>
-        <div><b>Vencimento</b><div class="val">03/07/2026</div></div>
-      </div>
-      <div style="margin-top:10px; font-size:12px; opacity:0.9;">DEBITO BANCO DE HORAS - FALTAS</div>
-    </div>
-  </div>
+  <div id="alertCred"></div>
+  <div id="alertDeb"></div>
 </div>
 
 <div class="grid two">
@@ -239,284 +195,14 @@
     <h2>🟢 Top 15 Créditos mais próximos do vencimento</h2>
     <table id="tblCred">
       <thead><tr><th>Colaborador</th><th>Cargo</th><th>Data Realização</th><th class="num">Valor</th><th>Vencimento</th><th class="num">Dias</th></tr></thead>
-      <tbody>
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">07/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:11</td>
-        <td>06/07/2026</td>
-        <td class="num"><b>5</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">08/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:26</td>
-        <td>07/07/2026</td>
-        <td class="num"><b>6</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">09/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:48</td>
-        <td>08/07/2026</td>
-        <td class="num"><b>7</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">10/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:40</td>
-        <td>09/07/2026</td>
-        <td class="num"><b>8</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">12/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:28</td>
-        <td>11/07/2026</td>
-        <td class="num"><b>10</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">13/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:14</td>
-        <td>12/07/2026</td>
-        <td class="num"><b>11</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">15/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">01:33</td>
-        <td>14/07/2026</td>
-        <td class="num"><b>13</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">16/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:24</td>
-        <td>15/07/2026</td>
-        <td class="num"><b>14</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">18/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:23</td>
-        <td>17/07/2026</td>
-        <td class="num"><b>16</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">20/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:25</td>
-        <td>19/07/2026</td>
-        <td class="num"><b>18</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">22/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:33</td>
-        <td>21/07/2026</td>
-        <td class="num"><b>20</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">23/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:24</td>
-        <td>22/07/2026</td>
-        <td class="num"><b>21</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">24/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:20</td>
-        <td>23/07/2026</td>
-        <td class="num"><b>22</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">27/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:21</td>
-        <td>26/07/2026</td>
-        <td class="num"><b>25</b></td>
-      </tr>
-    
-      <tr>
-        <td>ROGERIO SOUZA DOS SANTOS</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">30/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:23</td>
-        <td>29/07/2026</td>
-        <td class="num"><b>28</b></td>
-      </tr>
-    </tbody>
+      <tbody></tbody>
     </table>
   </div>
   <div class="card">
     <h2>🔴 Top 15 Débitos mais próximos do vencimento</h2>
     <table id="tblDeb">
       <thead><tr><th>Colaborador</th><th>Cargo</th><th>Data Realização</th><th class="num">Valor</th><th>Vencimento</th><th class="num">Dias</th></tr></thead>
-      <tbody>
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">04/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">07:10</td>
-        <td>03/07/2026</td>
-        <td class="num"><b>2</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">08/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:38</td>
-        <td>07/07/2026</td>
-        <td class="num"><b>6</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">09/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:42</td>
-        <td>08/07/2026</td>
-        <td class="num"><b>7</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">11/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:49</td>
-        <td>10/07/2026</td>
-        <td class="num"><b>9</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">13/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:25</td>
-        <td>12/07/2026</td>
-        <td class="num"><b>11</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">15/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:22</td>
-        <td>14/07/2026</td>
-        <td class="num"><b>13</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">17/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:33</td>
-        <td>16/07/2026</td>
-        <td class="num"><b>15</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">19/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">07:20</td>
-        <td>18/07/2026</td>
-        <td class="num"><b>17</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">20/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:53</td>
-        <td>19/07/2026</td>
-        <td class="num"><b>18</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">22/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:19</td>
-        <td>21/07/2026</td>
-        <td class="num"><b>20</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">28/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:31</td>
-        <td>27/07/2026</td>
-        <td class="num"><b>26</b></td>
-      </tr>
-    
-      <tr>
-        <td>AYRTON CESAR DOS SANTOS PEREIRA</td>
-        <td>TECNICO AT BK II</td>
-        <td style="color: #64748b; font-size: 11px;">30/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:42</td>
-        <td>29/07/2026</td>
-        <td class="num"><b>28</b></td>
-      </tr>
-    
-      <tr>
-        <td>GUSTAVO DONIZETI CARETTE</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">30/04/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">07:16</td>
-        <td>29/07/2026</td>
-        <td class="num"><b>28</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">03/05/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:44</td>
-        <td>01/08/2026</td>
-        <td class="num"><b>31</b></td>
-      </tr>
-    
-      <tr>
-        <td>LUCAS PAIS DE CAMARGO</td>
-        <td>TECNICO IAT II</td>
-        <td style="color: #64748b; font-size: 11px;">04/05/2026</td> <!-- NOVA COLUNA DE DATA REALIZAÇÃO -->
-        <td class="num">00:39</td>
-        <td>02/08/2026</td>
-        <td class="num"><b>32</b></td>
-      </tr>
-    </tbody>
+      <tbody></tbody>
     </table>
   </div>
 </div>
@@ -526,25 +212,25 @@
 <div class="grid">
   <div class="card">
     <h2>Saldo Líquido por Colaborador (HH:MM)</h2>
-    <div class="chart-wrap" style="height:540px;"><canvas id="chartSaldo" width="1806" height="594" style="display: block; box-sizing: border-box; height: 540px; width: 1642px;"></canvas></div>
+    <div class="chart-wrap" style="height:540px;"><canvas id="chartSaldo"></canvas></div>
   </div>
 </div>
 
 <div class="grid two">
   <div class="card">
     <h2>Créditos vs Débitos por Colaborador (Top 15 por volume)</h2>
-    <div class="chart-wrap" style="height:440px;"><canvas id="chartCD" width="870" height="484" style="display: block; box-sizing: border-box; height: 440px; width: 791px;"></canvas></div>
+    <div class="chart-wrap" style="height:440px;"><canvas id="chartCD"></canvas></div>
   </div>
   <div class="card">
     <h2>Distribuição por Tipo de Lançamento</h2>
-    <div class="chart-wrap" style="height:440px;"><canvas id="chartDist" width="870" height="484" style="display: block; box-sizing: border-box; height: 440px; width: 791px;"></canvas></div>
+    <div class="chart-wrap" style="height:440px;"><canvas id="chartDist"></canvas></div>
   </div>
 </div>
 
 <div class="grid">
   <div class="card">
     <h2>Evolução Diária - Créditos e Débitos (horas)</h2>
-    <div class="chart-wrap" style="height:360px;"><canvas id="chartDaily" width="1806" height="396" style="display: block; box-sizing: border-box; height: 360px; width: 1642px;"></canvas></div>
+    <div class="chart-wrap" style="height:360px;"><canvas id="chartDaily"></canvas></div>
   </div>
 </div>
 
@@ -558,154 +244,18 @@
               <th class="num">Créditos</th><th class="num">Débitos</th>
               <th class="num">Saldo</th><th class="num">Lançamentos</th></tr>
         </thead>
-        <tbody>
-      <tr class="pos">
-        <td>1</td><td>ROGERIO SOUZA DOS SANTOS</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">23:18</td>
-        <td class="num">00:00</td>
-        <td class="num"><b>23:18</b></td>
-        <td class="num">36</td>
-      </tr>
-    
-      <tr class="pos">
-        <td>2</td><td>JOSNEI MACHADO DE SOUZA</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">07:57</td>
-        <td class="num">00:00</td>
-        <td class="num"><b>07:57</b></td>
-        <td class="num">3</td>
-      </tr>
-    
-      <tr class="pos">
-        <td>3</td><td>ANDRE LUIZ DE ARAUJO</td><td>TECNICO IAT I</td><td>F�RIAS</td>
-        <td class="num">01:56</td>
-        <td class="num">00:00</td>
-        <td class="num"><b>01:56</b></td>
-        <td class="num">5</td>
-      </tr>
-    
-      <tr class="pos">
-        <td>4</td><td>PAULO SERGIO CARRARA</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:13</td>
-        <td class="num">00:00</td>
-        <td class="num"><b>00:13</b></td>
-        <td class="num">1</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>5</td><td>GERSAM BERNARDO DE OLIVEIRA</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">00:14</td>
-        <td class="num"><b>-00:14</b></td>
-        <td class="num">1</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>6</td><td>EWANDER DA SILVA CARVALHO</td><td>TECNICO IAT II</td><td>F�RIAS</td>
-        <td class="num">00:00</td>
-        <td class="num">01:46</td>
-        <td class="num"><b>-01:46</b></td>
-        <td class="num">1</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>7</td><td>LEONARDO TEIXEIRA DO NASCIMENTO</td><td>TECNICO IAT II</td><td>F�RIAS</td>
-        <td class="num">00:00</td>
-        <td class="num">02:53</td>
-        <td class="num"><b>-02:53</b></td>
-        <td class="num">1</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>8</td><td>RODRIGO FERREIRA ALBUQUERQUE</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">02:53</td>
-        <td class="num"><b>-02:53</b></td>
-        <td class="num">2</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>9</td><td>EWANDRO MOURA FE</td><td>TECNICO AT BK II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">03:07</td>
-        <td class="num"><b>-03:07</b></td>
-        <td class="num">2</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>10</td><td>MARCIO INACIO DE SOUZA</td><td>TECNICO IAT II</td><td>F�RIAS</td>
-        <td class="num">00:00</td>
-        <td class="num">06:06</td>
-        <td class="num"><b>-06:06</b></td>
-        <td class="num">1</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>11</td><td>ADILSON JOSE DA SILVA</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">06:34</td>
-        <td class="num"><b>-06:34</b></td>
-        <td class="num">3</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>12</td><td>GABRIEL DE FARIA</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">11:29</td>
-        <td class="num"><b>-11:29</b></td>
-        <td class="num">4</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>13</td><td>GUSTAVO DONIZETI CARETTE</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">14:48</td>
-        <td class="num"><b>-14:48</b></td>
-        <td class="num">3</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>14</td><td>ODIRLEI SILVEIRA DE CAMPOS</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">15:44</td>
-        <td class="num"><b>-15:44</b></td>
-        <td class="num">5</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>15</td><td>GUSTAVO HENRIQUE MENDES DE ALMEIDA</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">20:31</td>
-        <td class="num"><b>-20:31</b></td>
-        <td class="num">17</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>16</td><td>AYRTON CESAR DOS SANTOS PEREIRA</td><td>TECNICO AT BK II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">25:21</td>
-        <td class="num"><b>-25:21</b></td>
-        <td class="num">16</td>
-      </tr>
-    
-      <tr class="neg">
-        <td>17</td><td>LUCAS PAIS DE CAMARGO</td><td>TECNICO IAT II</td><td>ATIVO</td>
-        <td class="num">00:00</td>
-        <td class="num">32:55</td>
-        <td class="num"><b>-32:55</b></td>
-        <td class="num">30</td>
-      </tr>
-    </tbody>
+        <tbody></tbody>
       </table>
     </div>
   </div>
 </div>
 
-<footer>Dashboard gerado automaticamente a partir do arquivo <b id="currentFile">bancodehora.csv</b></footer>
+<footer>Dashboard gerado automaticamente a partir do arquivo <b id="currentFile">rhtk1144_130841 (14).csv</b></footer>
 
 <script>
 
 const INITIAL = {
-  csv_text_initial: `FUNC_ID;NOME;CARGO;STATUS;DESCRICAO;DATA REALIZA��O;DATA VENCIMENTO;SALDO A COMPENSAR;A_VENCER_EM_DIAS
+  csv_text_initial: `FUNC_ID;NOME;CARGO;STATUS;DESCRICAO;DATA REALIZAï¿½ï¿½O;DATA VENCIMENTO;SALDO A COMPENSAR;A_VENCER_EM_DIAS
 173806;LUCAS PAIS DE CAMARGO;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - FALTAS;04/04/2026;03/07/2026;07:10;2
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;07/04/2026;06/07/2026;00:11;5
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;08/04/2026;07/07/2026;00:26;6
@@ -753,7 +303,7 @@ const INITIAL = {
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;14/05/2026;12/08/2026;00:23;42
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;15/05/2026;13/08/2026;00:11;43
 173806;LUCAS PAIS DE CAMARGO;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;15/05/2026;13/08/2026;00:26;43
-162181;LEONARDO TEIXEIRA DO NASCIMENTO;TECNICO IAT II;F�RIAS;DEBITO BANCO DE HORAS - FALTAS;16/05/2026;14/08/2026;02:53;44
+162181;LEONARDO TEIXEIRA DO NASCIMENTO;TECNICO IAT II;FÉRIAS;DEBITO BANCO DE HORAS - FALTAS;16/05/2026;14/08/2026;02:53;44
 923012;GABRIEL DE FARIA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - FALTAS;16/05/2026;14/08/2026;03:05;44
 176036;ADILSON JOSE DA SILVA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - FALTAS;16/05/2026;14/08/2026;05:00;44
 168926;ODIRLEI SILVEIRA DE CAMPOS;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;17/05/2026;15/08/2026;00:13;45
@@ -786,7 +336,7 @@ const INITIAL = {
 173806;LUCAS PAIS DE CAMARGO;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;02/06/2026;31/08/2026;00:26;61
 176036;ADILSON JOSE DA SILVA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;02/06/2026;31/08/2026;00:15;61
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;03/06/2026;01/09/2026;00:18;62
-948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;F�RIAS;CREDITO BH DSR/FERIADO;04/06/2026;02/09/2026;00:43;63
+948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;FÉRIAS;CREDITO BH DSR/FERIADO;04/06/2026;02/09/2026;00:43;63
 933055;JOSNEI MACHADO DE SOUZA;TECNICO IAT II;ATIVO;CREDITO BH DSR/FERIADO;04/06/2026;02/09/2026;07:21;63
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;05/06/2026;03/09/2026;00:21;64
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;05/06/2026;03/09/2026;00:24;64
@@ -804,7 +354,7 @@ const INITIAL = {
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;13/06/2026;11/09/2026;00:27;72
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;14/06/2026;12/09/2026;00:24;73
 173764;AYRTON CESAR DOS SANTOS PEREIRA;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;15/06/2026;13/09/2026;0,041666667;74
-948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;F�RIAS;CREDITO BANCO DE HORAS;15/06/2026;13/09/2026;00:13;74
+948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;FÉRIAS;CREDITO BANCO DE HORAS;15/06/2026;13/09/2026;00:13;74
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;15/06/2026;13/09/2026;00:26;74
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;15/06/2026;13/09/2026;00:23;74
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;16/06/2026;14/09/2026;00:12;75
@@ -812,22 +362,23 @@ const INITIAL = {
 173764;AYRTON CESAR DOS SANTOS PEREIRA;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;18/06/2026;16/09/2026;00:17;77
 176436;GERSAM BERNARDO DE OLIVEIRA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;19/06/2026;17/09/2026;00:14;78
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;20/06/2026;18/09/2026;00:36;79
-124776;MARCIO INACIO DE SOUZA;TECNICO IAT II;F�RIAS;DEBITO BANCO DE HORAS - FALTAS;20/06/2026;18/09/2026;06:06;79
-180883;EWANDER DA SILVA CARVALHO;TECNICO IAT II;F�RIAS;DEBITO BANCO DE HORAS - FALTAS;20/06/2026;18/09/2026;01:46;79
+124776;MARCIO INACIO DE SOUZA;TECNICO IAT II;FÉRIAS;DEBITO BANCO DE HORAS - FALTAS;20/06/2026;18/09/2026;06:06;79
+180883;EWANDER DA SILVA CARVALHO;TECNICO IAT II;FÉRIAS;DEBITO BANCO DE HORAS - FALTAS;20/06/2026;18/09/2026;01:46;79
 173764;AYRTON CESAR DOS SANTOS PEREIRA;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;21/06/2026;19/09/2026;00:24;80
 173806;LUCAS PAIS DE CAMARGO;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;22/06/2026;20/09/2026;00:21;81
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;22/06/2026;20/09/2026;00:16;81
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;22/06/2026;20/09/2026;00:18;81
 173764;AYRTON CESAR DOS SANTOS PEREIRA;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;22/06/2026;20/09/2026;00:30;81
-948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;F�RIAS;CREDITO BANCO DE HORAS;23/06/2026;21/09/2026;00:32;82
+948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;FÉRIAS;CREDITO BANCO DE HORAS;23/06/2026;21/09/2026;00:32;82
 921995;GUSTAVO HENRIQUE MENDES DE ALMEIDA;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;23/06/2026;21/09/2026;00:12;82
+933024;HENRIQUE SODRE ALMEIDA;TECNICO IAT I;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;29/06/2026;27/09/2026;01:22;89
 168926;ODIRLEI SILVEIRA DE CAMPOS;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;24/06/2026;22/09/2026;00:34;83
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;25/06/2026;23/09/2026;00:37;84
 171006;ROGERIO SOUZA DOS SANTOS;TECNICO IAT II;ATIVO;CREDITO BANCO DE HORAS;26/06/2026;24/09/2026;00:28;85
-948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;F�RIAS;CREDITO BANCO DE HORAS;26/06/2026;24/09/2026;00:16;85
+948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;FÉRIAS;CREDITO BANCO DE HORAS;26/06/2026;24/09/2026;00:16;85
 157163;GUSTAVO DONIZETI CARETTE;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;27/06/2026;25/09/2026;00:12;86
 173764;AYRTON CESAR DOS SANTOS PEREIRA;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;29/06/2026;27/09/2026;07:20;88
-948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;F�RIAS;CREDITO BANCO DE HORAS;29/06/2026;27/09/2026;00:12;88
+948983;ANDRE LUIZ DE ARAUJO;TECNICO IAT I;FÉRIAS;CREDITO BANCO DE HORAS;29/06/2026;27/09/2026;00:12;88
 134218;RODRIGO FERREIRA ALBUQUERQUE;TECNICO IAT II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;29/06/2026;27/09/2026;02:42;88
 160534;EWANDRO MOURA FE;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;30/06/2026;28/09/2026;00:14;89
 173764;AYRTON CESAR DOS SANTOS PEREIRA;TECNICO AT BK II;ATIVO;DEBITO BANCO DE HORAS - ATRASOS;30/06/2026;28/09/2026;00:34;89
@@ -1639,7 +1190,6 @@ window.addEventListener('load', init);
 </script>
 
 
-
-
-
-</body></html>
+</script>
+</body>
+</html>
