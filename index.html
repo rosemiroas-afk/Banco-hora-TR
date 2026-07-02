@@ -404,8 +404,7 @@ async function refreshHistoryUI(){
         <td class="num">${item.colaboradores || 0}</td>
         <td>
           <button class="btn-history load" onclick="loadFromHistory(${item.id})">🔄 Carregar</button>
-          <button class="btn-history download" onclick="downloadFromHistory(${item.id})">⬇️ Baixar</button>
-          <button class="btn-history delete" onclick="removeFromHistory(${item.id})">🗑️</button>
+
         </td>
       </tr>
     `);
@@ -891,28 +890,53 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
   e.target.value = ''; // reset
 });
 
-// ============ INIT ============
+// ============ INIT CORRIGIDO DE FORMA DEFINITIVA ============
 async function init(){
-  rebuildAllFilters();
-  applyFilters();
-
   try {
+    // 1. Busca todos os arquivos salvos (a função listHistory() já entrega do mais novo para o mais velho)
     const items = await listHistory();
+    
+    // 2. Se o histórico estiver vazio, salva a base padrão inicial nele
     if(items.length === 0 && INITIAL.csv_text_initial){
-      // Salvar o arquivo inicial no histórico
       const colabs = new Set(INITIAL.records.map(r=>r.nome)).size;
       await saveToHistory(INITIAL.filename_initial, INITIAL.csv_text_initial,
                           INITIAL.records.length, colabs,
                           INITIAL.data_min, INITIAL.data_max);
+      
+      rebuildAllFilters();
+      applyFilters();
+    } else if (items.length > 0) {
+      // 3. Como a lista nativa já vem perfeitamente ordenada do mais novo ao mais velho,
+      // o índice [0] é o arquivo atual/mais recente de forma absoluta!
+      const ultimoItem = items[0];
+      
+      // Busca o conteúdo completo desse último arquivo carregado
+      const itemCompleto = await loadHistoryItem(ultimoItem.id);
+      
+      if (itemCompleto && itemCompleto.content) {
+        // Alimenta o sistema com o seu último CSV (passando 'false' para não duplicar no histórico)
+        processCsvText(itemCompleto.content, itemCompleto.filename, false);
+        console.log(`📊 Dashboard inicializado com o arquivo atual: ${itemCompleto.filename}`);
+      } else {
+        rebuildAllFilters();
+        applyFilters();
+      }
+    } else {
+      rebuildAllFilters();
+      applyFilters();
     }
+    
+    // 4. Atualiza a tabelinha visual do histórico na tela
     await refreshHistoryUI();
+    
   } catch(err){
     console.error('Erro IndexedDB:', err);
     showToast('⚠️ Histórico indisponível: ' + err.message, 'error');
+    rebuildAllFilters();
+    applyFilters();
   }
 }
 init();
-
 
 
 
@@ -979,10 +1003,9 @@ function filtrarPorColaborador() {
   if (typeof filters === 'undefined') filters = {};
   filters.colaborador = document.getElementById('filtro-colaborador').value;
   
-  // Executa a re-renderização usando a lógica nativa do sistema
   if (typeof applyFiltersBase === 'function') {
-    applyFiltersBase();
-  } else if (typeof filterRecords === 'function') {
+    window.applyFiltersBase();
+  } else if (typeof applyFilters === 'function') {
     applyFilters();
   }
 }
@@ -995,7 +1018,7 @@ function atualizarFiltroDeNomes() {
   const valorAtual = select.value || 'TODOS';
   select.innerHTML = '<option value="TODOS">TODOS</option>';
   
-  // Extrai os nomes do campo 'nome', remove duplicados e ordena de A a Z
+  // Extrai os nomes do campo 'nome', remove duplicados e organiza de A a Z
   const nomesUnicos = [...new Set(RECORDS.map(item => item.nome))].sort();
   
   nomesUnicos.forEach(nome => {
@@ -1044,16 +1067,15 @@ function auditarDadosImportados(registros) {
 // ==========================================
 // INTERCEPTADOR SEGURO DO GATILHO DO SISTEMA
 // ==========================================
-// Salva a função original de forma segura para evitar loops infinitos (Maximum call stack)
+// Cria uma ponte segura com a função nativa do seu painel para atualizar filtros e auditorias
 if (typeof applyFilters === 'function' && typeof applyFiltersBase === 'undefined') {
   window.applyFiltersBase = applyFilters;
   
-  // Substitui pelo nosso motor centralizado que orquestra os filtros e auditorias juntos
   window.applyFilters = function() {
-    // 1. Atualiza os nomes no filtro do colaborador
+    // 1. Atualiza os nomes no filtro do colaborador automaticamente
     atualizarFiltroDeNomes();
     
-    // 2. Executa a auditoria no arquivo novo
+    // 2. Executa a auditoria no arquivo
     if (typeof RECORDS !== 'undefined') {
       auditarDadosImportados(RECORDS);
     }
@@ -1064,66 +1086,16 @@ if (typeof applyFilters === 'function' && typeof applyFiltersBase === 'undefined
 }
 
 // ==========================================
-// TRAVA DE INICIALIZAÇÃO COMPLETA (ABRIR VAZIO)
+// MONITOR DE DADOS PARA COMPATIBILIDADE
 // ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(async () => {
-    
-    // 1. APAGA TODOS OS ARQUIVOS DO HISTÓRICO DO INDEXEDDB
-    try {
-      if (typeof clearHistory === 'function') {
-        await clearHistory(); 
-      }
-      if (typeof refreshHistoryUI === 'function') {
-        await refreshHistoryUI(); 
-      }
-    } catch (e) {
-      console.log("Aguardando inicialização do banco de dados...");
-    }
-
-    // 2. Zera a variável de registros internos
-    if (typeof RECORDS !== 'undefined') {
-      RECORDS = [];
-    }
-    
-    // 3. Reseta o objeto lógico de filtros do sistema
-    if (typeof filters !== 'undefined') {
-      filters = { tipo:'TODOS', status:'TODOS', cargo:'TODOS', colaborador:'TODOS' };
-    }
-    
-    // 4. Limpa os botões de filtros antigos voltando para o estado "TODOS"
-    document.querySelectorAll('.btn-filter').forEach(b => {
-      b.classList.toggle('active', b.dataset.value === 'TODOS');
-    });
-    
-    // 5. Limpa as opções de Status e Cargo (Esvazia as caixas de botões dinâmicos)
-    const divStatus = document.getElementById('filterStatus');
-    if (divStatus) divStatus.innerHTML = ''; 
-    
-    const divCargo = document.getElementById('filterCargo');
-    if (divCargo) divCargo.innerHTML = '';   
-    
-    // 6. Reseta visualmente o filtro de colaborador que criamos
-    const selectColab = document.getElementById('filtro-colaborador');
-    if (selectColab) selectColab.innerHTML = '<option value="TODOS">TODOS</option>';
-    
-    // 7. Limpa o nome do arquivo no cabeçalho
-    const idsCabecalho = ['fileNameHeader', 'currentFileName', 'fileTitle', 'lblFileName', 'uploadTitle'];
-    idsCabecalho.forEach(id => {
-      const elemento = document.getElementById(id);
-      if (elemento) elemento.textContent = ''; 
-    });
-    const classeArquivo = document.querySelector('.file-name') || document.querySelector('.header-file');
-    if (classeArquivo) classeArquivo.textContent = '';
-    
-    // 8. Força a atualização do painel para desenhar tudo ZERADO na tela
-    if (typeof applyFiltersBase === 'function') {
-      window.applyFiltersBase();
-    } else if (typeof applyFilters === 'function') {
-      applyFilters();
-    }
-  }, 400); 
-});
+// Caso o IndexedDB demore alguns milissegundos para carregar os dados ao abrir a página,
+// este monitor garante que o filtro de colaboradores apareça assim que as informações surgirem.
+setInterval(() => {
+  const select = document.getElementById('filtro-colaborador');
+  if (select && select.options.length <= 1 && typeof RECORDS !== 'undefined' && RECORDS.length > 0) {
+    atualizarFiltroDeNomes();
+  }
+}, 500);
 
 </script>
 
