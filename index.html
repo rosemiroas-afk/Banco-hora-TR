@@ -255,6 +255,7 @@
 <script>
 Chart.register(ChartDataLabels);
 
+// Deixamos a lista de registros vazia no código para o arquivo não travar
 const INITIAL = {
   "filename_initial": "banco_de_horas_operacao.csv",
   "data_min": "23/04/2026",
@@ -264,6 +265,7 @@ const INITIAL = {
   "csv_text_initial": "FUNC_ID;NOME;CARGO;STATUS;DESCRICAO;DATA REALIZAÇÃO;DATA VENCIMENTO;SALDO A COMPENSAR;A_VENCER_EM_DIAS",
   "records": []
 };
+
 
 
 let RECORDS = INITIAL.records;
@@ -900,48 +902,31 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
   e.target.value = ''; // reset
 });
 
-// ============ INIT CORRIGIDO DE FORMA DEFINITIVA ============
+// ============ INIT ADAPTADO PARA O GITHUB ============
 async function init(){
   try {
-    // 1. Busca todos os arquivos salvos (a função listHistory() já entrega do mais novo para o mais velho)
     const items = await listHistory();
     
-    // 2. Se o histórico estiver vazio, salva a base padrão inicial nele
-    if(items.length === 0 && INITIAL.csv_text_initial){
-      const colabs = new Set(INITIAL.records.map(r=>r.nome)).size;
-      await saveToHistory(INITIAL.filename_initial, INITIAL.csv_text_initial,
-                          INITIAL.records.length, colabs,
-                          INITIAL.data_min, INITIAL.data_max);
-      
-      rebuildAllFilters();
-      applyFilters();
-    } else if (items.length > 0) {
-      // 3. Como a lista nativa já vem perfeitamente ordenada do mais novo ao mais velho,
-      // o índice [0] é o arquivo atual/mais recente de forma absoluta!
-      const ultimoItem = items[0];
-      
-      // Busca o conteúdo completo desse último arquivo carregado
+    // Se você já carregou o seu CSV alguma vez, ele pega o seu arquivo de técnicos na hora
+    if (items.length > 0) {
+      const ultimoItem = items[0]; // Pega o primeiro (mais recente)
       const itemCompleto = await loadHistoryItem(ultimoItem.id);
       
       if (itemCompleto && itemCompleto.content) {
-        // Alimenta o sistema com o seu último CSV (passando 'false' para não duplicar no histórico)
         processCsvText(itemCompleto.content, itemCompleto.filename, false);
-        console.log(`📊 Dashboard inicializado com o arquivo atual: ${itemCompleto.filename}`);
-      } else {
-        rebuildAllFilters();
-        applyFilters();
+        console.log(`📊 Carregado automaticamente do histórico do GitHub: ${itemCompleto.filename}`);
+        await refreshHistoryUI();
+        return;
       }
-    } else {
-      rebuildAllFilters();
-      applyFilters();
     }
     
-    // 4. Atualiza a tabelinha visual do histórico na tela
+    // Se for a primeira vez abrindo no GitHub, inicia zerado com os botões de cargos corretos
+    rebuildAllFilters();
+    applyFilters();
     await refreshHistoryUI();
     
   } catch(err){
-    console.error('Erro IndexedDB:', err);
-    showToast('⚠️ Histórico indisponível: ' + err.message, 'error');
+    console.error('Erro de inicialização:', err);
     rebuildAllFilters();
     applyFilters();
   }
