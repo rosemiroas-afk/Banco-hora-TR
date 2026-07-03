@@ -7,10 +7,18 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 <style>
+
+//CORES DO TITULO\\
+
   * { box-sizing: border-box; }
+
+
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:24px;
          background: linear-gradient(135deg,#f0f4f8 0%,#d9e2ec 100%); color:#1a2a44; }
-  header { background: linear-gradient(90deg,#003a70 0%,#0070d1 100%); color:#fff;
+
+
+
+  header { background: linear-gradient(90deg,#8B0000 0%,#FF7F50 100%); color:#fff;
            padding:20px 28px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.12); margin-bottom:20px;
            display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; }
   header .titlebox h1 { margin:0 0 6px 0; font-size:24px; font-weight:600; }
@@ -787,7 +795,7 @@ function renderKPIs(t){
   document.getElementById('kpis').innerHTML = `
     <div class="kpi cred"><div class="label">Total Créditos</div><div class="value">${formatHM(t.creditos)}</div></div>
     <div class="kpi deb"><div class="label">Total Débitos</div><div class="value">${formatHM(t.debitos)}</div></div>
-    <div class="kpi ${saldoCls}"><div class="label">Saldo Líquido</div><div class="value">${formatHM(t.saldo)}</div></div>
+    <div class="kpi ${saldoCls}"><div class="label">Saldo Atual</div><div class="value">${formatHM(t.saldo)}</div></div>
     <div class="kpi"><div class="label">Colaboradores</div><div class="value">${t.colaboradores}</div></div>
     <div class="kpi"><div class="label">Lançamentos</div><div class="value">${t.lancamentos}</div></div>
   `;
