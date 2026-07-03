@@ -136,6 +136,27 @@
   </div>
 </header>
 
+<div id="historyPanel">
+  <div id="historyToggle" onclick="toggleHistory()">
+    <div class="left">📚 Histórico de Atualizações <span class="count-badge" id="historyCount">0</span></div>
+    <div class="arrow">▼</div>
+  </div>
+
+  <div id="historyContent">
+    <div class="history-info">
+      ℹ️ Por questões de segurança, os navegadores não permitem criar pastas no seu computador automaticamente.
+      O histórico fica armazenado no <b>IndexedDB do navegador</b> (persiste mesmo após fechar o Edge/Chrome).
+      Para manter cópias permanentes em pasta local, use o botão <b>⬇️ Baixar</b> de cada versão e salve em uma
+      pasta de sua escolha (ex: <code>C:\BancoHoras\Historico\</code>).
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>Arquivo</th><th>Upload</th><th>Período</th><th>Lanç.</th><th>Colab.</th><th>Ações</th></tr></thead>
+      <tbody id="historyTbody"></tbody>
+    </table>
+    <button class="btn-clear-history" onclick="confirmClearHistory()">🧹 Limpar Histórico</button>
+  </div>
+</div>
+
 <div id="toastContainer"></div>
 
 <div class="filters">
@@ -163,25 +184,22 @@
   </div>
 </div>
 
-<div id="historyPanel">
-  <div id="historyToggle" onclick="toggleHistory()">
-    <div class="left">📚 Histórico de Atualizações <span class="count-badge" id="historyCount">0</span></div>
-    <div class="arrow">▼</div>
-  </div>
-  <div id="historyContent">
-    <div class="history-info">
-      ℹ️ Por questões de segurança, os navegadores não permitem criar pastas no seu computador automaticamente.
-      O histórico fica armazenado no <b>IndexedDB do navegador</b> (persiste mesmo após fechar o Edge/Chrome).
-      Para manter cópias permanentes em pasta local, use o botão <b>⬇️ Baixar</b> de cada versão e salve em uma
-      pasta de sua escolha (ex: <code>C:\BancoHoras\Historico\</code>).
+<div class="grid">
+  <div class="card">
+    <h2>Detalhamento por Colaborador</h2>
+    <div style="max-height:520px; overflow-y:auto;">
+      <table id="tbl">
+        <thead>
+          <tr><th>#</th><th>Nome</th><th>Cargo</th><th>Status</th>
+              <th class="num">Créditos</th><th class="num">Débitos</th>
+              <th class="num">Saldo</th><th class="num">Lançamentos</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-    <table>
-      <thead><tr><th>#</th><th>Arquivo</th><th>Upload</th><th>Período</th><th>Lanç.</th><th>Colab.</th><th>Ações</th></tr></thead>
-      <tbody id="historyTbody"></tbody>
-    </table>
-    <button class="btn-clear-history" onclick="confirmClearHistory()">🧹 Limpar Histórico</button>
   </div>
 </div>
+
 
 <section class="kpis" id="kpis"></section>
 
@@ -209,12 +227,7 @@
 
 
 
-<div class="grid">
-  <div class="card">
-    <h2>Saldo Líquido por Colaborador (HH:MM)</h2>
-    <div class="chart-wrap" style="height:540px;"><canvas id="chartSaldo"></canvas></div>
-  </div>
-</div>
+
 
 <div class="grid two">
   <div class="card">
@@ -234,21 +247,7 @@
   </div>
 </div>
 
-<div class="grid">
-  <div class="card">
-    <h2>Detalhamento por Colaborador</h2>
-    <div style="max-height:520px; overflow-y:auto;">
-      <table id="tbl">
-        <thead>
-          <tr><th>#</th><th>Nome</th><th>Cargo</th><th>Status</th>
-              <th class="num">Créditos</th><th class="num">Débitos</th>
-              <th class="num">Saldo</th><th class="num">Lançamentos</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-</div>
+
 
 <footer>Dashboard gerado automaticamente a partir do arquivo <b id="currentFile">rhtk1144_130841 (14).csv</b></footer>
 
@@ -761,6 +760,8 @@ function computeAggregates(recs){
     if(r.tipo==='CREDITO') dailyMap[k].credito += r.minutos;
     else if(r.tipo==='DEBITO') dailyMap[k].debito += r.minutos;
   });
+
+
   const diario = Object.values(dailyMap).sort((a,b)=> (a.data_iso||'') > (b.data_iso||'') ? 1 : -1);
 
   const distMap = {};
